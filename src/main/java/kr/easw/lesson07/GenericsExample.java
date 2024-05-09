@@ -1,6 +1,5 @@
 package kr.easw.lesson07;
 
-
 /**
  * 해당 클래스는 익명 클래스 및 제너릭스에 대해 조금 더 친숙해지기 위해 구성된 문제입니다.
  *
@@ -10,7 +9,7 @@ package kr.easw.lesson07;
 public class GenericsExample {
 
     public static void main(String[] args) {
-        Recipe<Ingredient, Cake> recipe = new Recipe<>(new RottenEgg()) {
+        Recipe<Ingredient, Cake> recipe = new Recipe<>(new Egg()) {
             @Override
             public Cake cook() {
                 // 제너릭스를 통해 클래스를 확정했음으로, T 제너릭스가 Ingredient를 상속받는것이 보장됩니다.
@@ -19,6 +18,7 @@ public class GenericsExample {
                 return new Cake();
             }
         };
+
         // 반환값 또한 같습니다. 제너릭스를 통해 클래스를 확정했음으로, R 제너릭스가 Cake이거나 Cake 클래스를 상속받은 클래스임이 보장됩니다.
         recipe.cook().bake();
     }
@@ -76,7 +76,4 @@ public class GenericsExample {
             System.out.println("Done!");
         }
     }
-
-
-
 }
