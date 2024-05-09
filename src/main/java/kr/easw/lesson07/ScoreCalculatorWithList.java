@@ -1,5 +1,7 @@
 package kr.easw.lesson07;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,47 +16,58 @@ import java.util.Scanner;
  * - 입력된 점수가 없을 경우, RuntimeException을 발생시켜야 합니다.
  */
 public class ScoreCalculatorWithList {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         Calculator calculator = new CalculatorImpl();
 
         while (true) {
             System.out.println("Enter the subject and score.");
             System.out.print("> ");
+
             String subject = scanner.next();
             if (subject.equals("exit")) {
                 break;
             }
+
             int score = scanner.nextInt();
             calculator.addScore(subject, score);
         }
+
         System.out.printf("Subject Counts: %d; Average: %.2f; ", calculator.getSubjectCount(), calculator.getAverage());
     }
 
     interface Calculator {
         void addScore(String subject, int score);
-
         double getAverage();
-
         int getSubjectCount();
     }
 
     static class CalculatorImpl implements Calculator {
+        private final List<Score> scores = new ArrayList<>();
 
         @Override
         public void addScore(String subject, int score) {
-            throw new RuntimeException("이곳에 코드를 작성하세요.");
+            scores.add(new Score(subject, score));
         }
 
         @Override
         public double getAverage() {
-            throw new RuntimeException("이곳에 코드를 작성하세요.");
+            if (scores.isEmpty()) {
+                throw new RuntimeException("No scores entered.");
+            }
+
+            int sum = 0;
+            for (Score score : scores) {
+                sum += score.getScore();
+            }
+
+            return (double) sum / scores.size();
         }
 
         @Override
         public int getSubjectCount() {
-            throw new RuntimeException("이곳에 코드를 작성하세요.");
+            return scores.size();
         }
     }
 
